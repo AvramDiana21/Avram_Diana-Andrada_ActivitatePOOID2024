@@ -155,5 +155,4 @@ void main() {
     aport1.afisare();
 
     AportCaloric aport2(2200, 250, "Carne");
-    aport2.afisare();
-}
+    aport2.afisare();}
