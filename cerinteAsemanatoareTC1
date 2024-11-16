@@ -1,0 +1,99 @@
+#include <iostream>
+#include<string>
+using namespace std;
+
+class Carte {
+private:
+	string titlu;
+	char categorie;
+	int numarPagini;
+	float pret;
+	double greutate;
+	bool esteNoua;
+
+public:
+	Carte() {
+		this->titlu = "Necunoscut";
+		this->categorie = 'R';
+		this->numarPagini = 300;
+		this->pret = 35.99f;
+		this->greutate = 100.00;
+		this->esteNoua = true;
+
+	}
+
+	Carte(string titlu, char categorie, 
+		int numarPagini, float pret, double greutate, 
+		bool esteNoua) {
+		this->titlu = titlu;
+		this->categorie = categorie;
+		this->numarPagini = numarPagini;
+		this->pret = pret;
+		this->greutate = greutate;
+		this->esteNoua = esteNoua;
+	}
+
+	Carte(const Carte& c) {
+		this->titlu = c.titlu;
+		this->categorie = c.categorie;
+		this->numarPagini = c.numarPagini;
+		this->pret = c.pret;
+		this->greutate = c.greutate;
+		this->esteNoua = c.esteNoua;
+	}
+
+
+		string getTitlu() { return this->titlu; }
+		char getCategorie() { return this->categorie; }
+		int getNumarPagini() { return this->numarPagini; }
+		float getPret() { return this->pret; }
+		double getGreutate() { return this->greutate; }
+		bool getEsteNoua() { return this->esteNoua; }
+
+
+		void setTitlu(string titlu) {this->titlu=titlu; }
+		void setCategorie(char categorie) { this->categorie = categorie; }
+		void setNumarPagini(int numarPagini) {
+			if (numarPagini > 0){
+				this->numarPagini = numarPagini; }
+		}
+
+		void setPret(float pret) {
+			if(pret>=0){ this->pret = pret; } }
+
+		void setGreutate(double greutate) {
+			if (greutate >= 0) { this->greutate = greutate; }
+		}
+		void setEsteNoua(bool esteNoua) { this->esteNoua = esteNoua; }
+
+
+
+	void afisare() {
+		cout << "Titlu: " << this->titlu << endl;
+		cout << "Categorie: " << this->categorie << endl;
+		cout << "Numar de pagini: " << this->numarPagini << endl;
+		cout << "Pret: " << this->pret << endl;
+		cout << "Greutate: " << this->greutate << endl;
+		cout << "Este o carte noua: " << (this->esteNoua ? "DA":"NU" )<< endl;
+	}
+};
+
+
+
+void main() {
+	Carte carte1;
+	cout << "Cartea nr 1: " << endl;
+	carte1.afisare();
+
+	Carte carte2("1984", 'S', 328, 49.99f, 0.45, true);
+	cout << endl << "Cartea 2:" << endl;
+	carte2.afisare();
+
+	cout << "Modificam valori: " << endl;
+	carte1.setEsteNoua(false);
+
+	cout << endl << "Cartea nr 1 dupa modificari:" << endl;
+	carte1.afisare();
+
+}
+
