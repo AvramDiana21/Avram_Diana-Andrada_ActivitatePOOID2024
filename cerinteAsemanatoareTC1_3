@@ -1,0 +1,89 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+class Masina {
+private:
+	string marca;
+	string model;
+	int anFabricatie;
+	float vitezaMaxima;
+	int kilometraj;
+
+public:
+	Masina() {
+		this->marca = "BWV";
+		this->model = "ALPHA";
+		this->anFabricatie = 1999;
+		this->vitezaMaxima = 450.00f;
+		this->kilometraj = 1200;
+	}
+
+	Masina(string marca,string model) {
+		this->marca = marca;
+		this->model = model;
+		this->anFabricatie = 1900;
+		this->vitezaMaxima = 350;
+		this->kilometraj = 1000;
+		if(anFabricatie>=1885){ this->anFabricatie = anFabricatie; }
+		if(vitezaMaxima>0) { this->vitezaMaxima= vitezaMaxima; }
+		if (kilometraj >= 0) { this->kilometraj = kilometraj; }
+	}
+
+	Masina(const Masina& c) {
+		this->marca = c.marca;
+		this->model = c.model;
+		this->anFabricatie = c.anFabricatie;
+		this->vitezaMaxima = c.vitezaMaxima;
+		this->kilometraj = c.kilometraj;
+	}
+
+	void afisare() {
+		cout << "Marca: " <<this->marca<< endl;
+		cout << "Model: " << this->model << endl;
+		cout << "An fabricatie: " << this->anFabricatie << endl;
+		cout << "Viteza: " << this->vitezaMaxima << endl;
+		cout << "Kilometraj: " << this->kilometraj << endl;
+		cout << "Varsta: " << getVarsta()<<" ani" << endl;
+	}
+
+	float getVitezaMaxima() { return this->vitezaMaxima; }
+	void setVitezaMaxima(float vitezaMaxima) {
+		if (vitezaMaxima > 0) { this->vitezaMaxima = vitezaMaxima; }
+	}
+
+
+	int getKilometraj() { return this->kilometraj; }
+	void setKilometraj(int kilometraj) {
+		if (kilometraj >= 0) {
+			this->kilometraj = kilometraj;
+		}
+	}
+
+	
+	int getVarsta() {
+		return 2024 - this->anFabricatie;
+	}
+
+};
+
+
+void main() {
+	Masina masina1;
+	masina1.afisare();
+
+	cout << endl;
+	Masina masina2("Volvo", "BETA");
+	masina2.afisare();
+	cout << endl;
+
+	cout <<"Masina dupa modificare: " << endl;
+
+	masina1.setVitezaMaxima(500);
+	masina1.setKilometraj(100);
+	masina1.afisare();
+
+	cout << "\n\nMasina dupa copiere: " << endl;
+	Masina masina3 = masina1;
+	masina3.afisare();
+}
