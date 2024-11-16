@@ -1,0 +1,90 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+//doar cu atribute normale
+
+class Laptop {
+private:
+	string marca;
+	string model;
+	float diagonala;
+	int RAM;
+	int stocDisponibil;
+
+
+public:
+	Laptop() {
+		this->marca = "Lenovo";
+		this->model = "rcv";
+		this->diagonala = 80.5f;
+		this->RAM = 64;
+		this->stocDisponibil = 100;
+
+	}
+
+	Laptop(string marca, string model) {
+		this->marca = marca;
+		this->model = model;
+		this->diagonala = 30.5;
+		this->RAM = 8;
+		this->stocDisponibil = 50;
+
+	}
+
+	Laptop(const Laptop& c) {
+		this->marca = c.marca;
+		this->model = c.model;
+		this->diagonala = c.diagonala;
+		this->RAM = c.RAM;
+		this->stocDisponibil = c.stocDisponibil;
+
+	}
+
+	void afisare() {
+		cout << "Marca: " << this->marca << endl;
+		cout << "Model: " << this->model << endl;
+		cout << "Diagonala: " << this->diagonala << endl;
+		cout << "RAM: " << this->RAM << endl;
+		cout << "Stoc disponibil: " << this->stocDisponibil << endl;
+
+	}
+
+	int getRAM() { return this->RAM; }
+	void setRAM(int RAM) {
+		if (RAM >=4) {
+			this->RAM = RAM;
+	} }
+
+
+	int getStocDisponibil() { return this->stocDisponibil; }
+	void setStocDisponibil(int stocDisponibil) {
+		if (stocDisponibil >= 0 && stocDisponibil<=this->stocDisponibil) {
+			this->stocDisponibil = stocDisponibil;
+		}
+	}
+
+
+};
+
+void main() {
+	Laptop laptop1;
+	cout << "Info Laptop nr1" << endl;
+	laptop1.afisare();
+
+	Laptop laptop2("HP","XXL");
+	cout << "\n\nInfo Laptop nr2" << endl;
+	laptop2.afisare();
+
+
+	cout << "\n\nLaptop 1 dupa modificare" << endl;
+	laptop1.setRAM(32);
+	laptop1.setStocDisponibil(45);
+	cout << "Info Laptop nr1" << endl;
+	laptop1.afisare();
+
+	Laptop laptop3 = laptop1;
+	cout << "\n\nInfo Laptop nr3" << endl;
+	laptop3.afisare();
+
+}
