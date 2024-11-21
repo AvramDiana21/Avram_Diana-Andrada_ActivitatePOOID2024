@@ -1,0 +1,170 @@
+#include<iostream>
+using namespace std;
+
+class Autobuz {
+private:
+	static int nrAutobuze;
+	const int idAutobuz;
+	int capacitate;
+	int nrPersoaneImbarcate;
+	char* producator;
+
+public:
+	Autobuz():idAutobuz(++nrAutobuze) {
+		capacitate = 100;
+		nrPersoaneImbarcate = 50;
+		producator = new char[strlen("Necunoscut")+1];
+		strcpy_s(producator,strlen("Necunoscut")+1, "Necunoscut");
+	}
+
+
+	Autobuz(int capacitate, int nrPersoaneImbarcate, const char* producatorNou) :idAutobuz(++nrAutobuze) {
+		this->capacitate = capacitate;
+		if (capacitate > 0 && capacitate < 101) {
+			this->capacitate = capacitate;
+		}
+		else
+		{
+			cout << "Capacitate invalida!" << endl;
+		}
+
+		if (nrPersoaneImbarcate >= 0 && nrPersoaneImbarcate <= capacitate)
+		{
+			this->nrPersoaneImbarcate = nrPersoaneImbarcate;
+		}
+		else
+		{
+			cout << "Nr persoane invalid!\n\n";
+		}
+
+		producator = new char[strlen(producatorNou)+1];
+		strcpy_s(producator,strlen(producatorNou)+1, producatorNou);
+	}
+
+	Autobuz(const Autobuz& c) :idAutobuz(++nrAutobuze) {
+		this->capacitate = c.capacitate;
+		this->nrPersoaneImbarcate = c.nrPersoaneImbarcate;
+		producator = new char[strlen(c.producator) + 1];
+		strcpy_s(producator, strlen(c.producator)+1, c.producator);
+	}
+
+	~Autobuz() {
+		delete[] producator;
+		--nrAutobuze;
+	}
+
+	Autobuz& operator=(const Autobuz& e) {
+		if (this == &e) {
+			return *this;
+		}
+		delete[]producator;
+		this->capacitate = e.capacitate;
+		this->nrPersoaneImbarcate = e.nrPersoaneImbarcate;
+		producator = new char[strlen(e.producator) + 1];
+		strcpy_s(producator,strlen(e.producator)+1, e.producator);
+
+		return *this;
+	}
+
+
+
+	int getCapacitate() const { return this->capacitate; }
+	int getNrPersoaneImbarcate()const { return this->nrPersoaneImbarcate; }
+	
+	void setCapacitate(int capacitate) {
+		if (capacitate > 0) {
+			this->capacitate = capacitate;
+		}
+		else
+		{
+			cout << "Capacitate invalida!" << endl;
+		}
+	}
+
+	void setNrPersoaneImbarcate(int nrPersoaneImbarcate)
+	{
+		if (nrPersoaneImbarcate >= 0 && nrPersoaneImbarcate <= capacitate)
+		{
+			this->nrPersoaneImbarcate = nrPersoaneImbarcate;
+		}
+		else
+		{
+			this->nrPersoaneImbarcate = 0;
+			cout << "Nr persoane invalid! Se trece val standard\n";
+			
+		}
+
+	}
+
+
+	int getNumarLocuriLibere() {
+		return capacitate - nrPersoaneImbarcate;
+		}
+
+	operator int() {
+		return nrPersoaneImbarcate;
+	}
+
+	
+
+
+	void afisare() {
+		cout << "ID  autobuz: " << idAutobuz << " , Capacitate: " 
+			<< capacitate <<" , Nr pers imbarcate: " << nrPersoaneImbarcate
+			<< " , Producator: " << producator << endl;
+		cout << "Locuri libere: " << getNumarLocuriLibere() << endl;
+		cout << "Nr total autobuze: " << nrAutobuze << endl;
+		
+		
+	}
+
+	friend ostream& operator<<(ostream& oStream, Autobuz autobuz) {
+		oStream <<"Capacitate: " << autobuz.getCapacitate() << "; Pers imbarcate: " << autobuz.getNrPersoaneImbarcate()
+			<< "; Locuri libere: " << autobuz.getNumarLocuriLibere() << ".";
+		return oStream;
+
+	}
+
+};
+
+
+int Autobuz::nrAutobuze = 0;
+int main() {
+
+	Autobuz autobuz1;
+	autobuz1.afisare();
+	
+
+	cout << endl;
+	Autobuz autobuz2(90 , 80, "Rover");
+	autobuz2.afisare();
+	cout << endl;
+	Autobuz autobuz3=autobuz1;
+	autobuz3.afisare();
+
+
+	cout << endl;
+	autobuz2 = autobuz1;
+	cout << "Autobuz 2 dupa atribuire" << endl;
+	autobuz2.afisare();
+
+	cout << endl;
+	autobuz1 = autobuz1;
+	autobuz1.afisare();
+
+	cout << endl;
+	autobuz1.setCapacitate(70);
+	autobuz1.setNrPersoaneImbarcate(80);
+	autobuz1.afisare();
+
+
+	cout << "*****" << endl;
+	cout << autobuz1 << endl;
+
+	cout << endl;
+	cout << "Nr persoane din autobuzul 2: " << (int)autobuz2 << endl;
+
+
+
+
+}
